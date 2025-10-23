@@ -1,7 +1,7 @@
 import { SERVER_URL } from "../config";
 
-import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import URL from "@/constants/url";
 import { getSessionItem, setSessionItem } from "@/utils/storage";
 
 export function getQueryString(params) {
@@ -11,6 +11,7 @@ export function getQueryString(params) {
 }
 
 export function requestFetch(url, requestOptions, handler, errorHandler) {
+  console.log("requestFetch [URL] : ", SERVER_URL + url);
   console.groupCollapsed("requestFetch");
   console.log("requestFetch [URL] : ", SERVER_URL + url);
   console.log("requestFetch [requestOption] : ", requestOptions);

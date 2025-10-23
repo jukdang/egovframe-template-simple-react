@@ -1,81 +1,93 @@
-import { useEffect, useState, useRef, useCallback } from "react";
-import { Navigate, Routes, Route, useLocation } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import URL from "@/constants/url";
 import CODE from "@/constants/code";
+import URL from "@/constants/url";
+
 
 //COMMON
-import EgovHeader from "@/components/EgovHeader";
-import EgovFooter from "@/components/EgovFooter";
-import EgovInfoPopup from "@/components/EgovInfoPopup";
 import EgovError from "@/components/EgovError";
+import EgovFooter from "@/components/EgovFooter";
+import EgovHeader from "@/components/EgovHeader";
+import EgovInfoPopup from "@/components/EgovInfoPopup";
 
-import EgovMain from "@/pages/main/EgovMain";
 import EgovLogin from "@/pages/login/EgovLogin";
+import EgovMain from "@/pages/main/EgovMain";
 
 //SNS
-import SnsNaverCallback from "@/components/sns/SnsNaverCallback";
 import SnsKakaoCallback from "@/components/sns/SnsKakaoCallback";
+import SnsNaverCallback from "@/components/sns/SnsNaverCallback";
 
 //ABOUT
-import EgovAboutSite from "@/pages/about/EgovAboutSite";
 import EgovAboutHistory from "@/pages/about/EgovAboutHistory";
-import EgovAboutOrganization from "@/pages/about/EgovAboutOrganization";
 import EgovAboutLocation from "@/pages/about/EgovAboutLocation";
+import EgovAboutOrganization from "@/pages/about/EgovAboutOrganization";
+import EgovAboutSite from "@/pages/about/EgovAboutSite";
 
 //INTRO
-import EgovIntroWork from "@/pages/intro/EgovIntroWork";
 import EgovIntroService from "@/pages/intro/EgovIntroService";
+import EgovIntroWork from "@/pages/intro/EgovIntroWork";
 
 //SUPPORT
-import EgovSupportDownloadList from "@/pages/support/download/EgovDownloadList";
-import EgovSupportDownloadDetail from "@/pages/support/download/EgovDownloadDetail";
-import EgovSupportDownloadCreate from "@/pages/support/download/EgovDownloadCreate";
-import EgovSupportQnaList from "@/pages/support/qna/EgovQnaList";
-import EgovSupportQnaDetail from "@/pages/support/qna/EgovQnaDetail";
 import EgovSupportApply from "@/pages/support/apply/EgovSupportApply";
+import EgovSupportDownloadCreate from "@/pages/support/download/EgovDownloadCreate";
+import EgovSupportDownloadDetail from "@/pages/support/download/EgovDownloadDetail";
+import EgovSupportDownloadList from "@/pages/support/download/EgovDownloadList";
+import EgovSupportQnaDetail from "@/pages/support/qna/EgovQnaDetail";
+import EgovSupportQnaList from "@/pages/support/qna/EgovQnaList";
 
 //INFORM
-import EgovDailyList from "@/pages/inform/daily/EgovDailyList";
 import EgovDailyDetail from "@/pages/inform/daily/EgovDailyDetail";
+import EgovDailyList from "@/pages/inform/daily/EgovDailyList";
 import EgovWeeklyList from "@/pages/inform/weekly/EgovWeeklyList";
 
-import EgovNoticeList from "@/pages/inform/notice/EgovNoticeList";
 import EgovNoticeDetail from "@/pages/inform/notice/EgovNoticeDetail";
 import EgovNoticeEdit from "@/pages/inform/notice/EgovNoticeEdit";
+import EgovNoticeList from "@/pages/inform/notice/EgovNoticeList";
 
-import EgovGalleryList from "@/pages/inform/gallery/EgovGalleryList";
 import EgovGalleryDetail from "@/pages/inform/gallery/EgovGalleryDetail";
 import EgovGalleryEdit from "@/pages/inform/gallery/EgovGalleryEdit";
+import EgovGalleryList from "@/pages/inform/gallery/EgovGalleryList";
 
 //ADMIN
-import EgovAdminScheduleList from "@/pages/admin/schedule/EgovAdminScheduleList";
 import EgovAdminScheduleDetail from "@/pages/admin/schedule/EgovAdminScheduleDetail";
 import EgovAdminScheduleEdit from "@/pages/admin/schedule/EgovAdminScheduleEdit";
+import EgovAdminScheduleList from "@/pages/admin/schedule/EgovAdminScheduleList";
 
-import EgovAdminBoardList from "@/pages/admin/board/EgovAdminBoardList";
 import EgovAdminBoardEdit from "@/pages/admin/board/EgovAdminBoardEdit";
+import EgovAdminBoardList from "@/pages/admin/board/EgovAdminBoardList";
 
-import EgovAdminUsageList from "@/pages/admin/usage/EgovAdminUsageList";
 import EgovAdminUsageEdit from "@/pages/admin/usage/EgovAdminUsageEdit";
+import EgovAdminUsageList from "@/pages/admin/usage/EgovAdminUsageList";
 
-import EgovAdminNoticeList from "@/pages/admin/notice/EgovAdminNoticeList";
 import EgovAdminNoticeDetail from "@/pages/admin/notice/EgovAdminNoticeDetail";
 import EgovAdminNoticeEdit from "@/pages/admin/notice/EgovAdminNoticeEdit";
+import EgovAdminNoticeList from "@/pages/admin/notice/EgovAdminNoticeList";
 
-import EgovAdminGalleryList from "@/pages/admin/gallery/EgovAdminGalleryList";
 import EgovAdminGalleryDetail from "@/pages/admin/gallery/EgovAdminGalleryDetail";
 import EgovAdminGalleryEdit from "@/pages/admin/gallery/EgovAdminGalleryEdit";
+import EgovAdminGalleryList from "@/pages/admin/gallery/EgovAdminGalleryList";
 //사이트관리자 암호 바꾸기 기능 추가 2023.04.15(토) 김일국 추가
 import EgovAdminPasswordUpdate from "@/pages/admin/manager/EgovAdminPasswordUpdate";
 //회원관리 기능 추가
-import EgovAdminMemberList from "@/pages/admin/members/EgovAdminMemberList";
 import EgovAdminMemberEdit from "@/pages/admin/members/EgovAdminMemberEdit";
+import EgovAdminMemberList from "@/pages/admin/members/EgovAdminMemberList";
 //마이페이지 기능 추가
-import EgovMypageEdit from "@/pages/mypage/EgovMypageEdit";
 import initPage from "@/js/ui";
+import EgovMypageEdit from "@/pages/mypage/EgovMypageEdit";
+
+import UsageStats from "@/pages/stats/UsageStats";
 
 const RootRoutes = () => {
+  useEffect(() => {
+    import("@/css/base.css")
+    import("@/css/component.css");
+    import("@/css/layout.css");
+    import("@/css/page.css");
+    import("@/css/response.css");
+  }, []);
+
+
   //useLocation객체를 이용하여 정규표현식을 사용한 /admin/~ 으로 시작하는 경로와 비교에 사용(아래 1줄) */}
   const location = useLocation();
 
@@ -433,6 +445,11 @@ const SecondRoutes = () => {
         <Route
           path={URL.MYPAGE_MODIFY}
           element={<EgovMypageEdit mode={CODE.MODE_MODIFY} />}
+        />
+
+        <Route
+          path={'/theimc/usage'}
+          element={<UsageStats />}
         />
       </Routes>
 

@@ -1,13 +1,13 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react({
-    // JSX Ã³¸®¸¦ À§ÇÑ Ãß°¡ ¼³Á¤
+    // JSX ì²˜ë¦¬ë¥¼ ìœ„í•œ ì¶”ê°€ ì„¤ì •
     include: "**/*.{jsx,js}",
   })],
-  
+
   base: "/",
   server: {
     port: 3000,
@@ -21,16 +21,16 @@ export default defineConfig({
     environment: "jsdom",
     setupFiles: "./vitest.setup.js",
     transformMode: {
-      web: [/\.[jt]sx?$/],  // ¸ğµç JS/JSX/TS/TSX ÆÄÀÏÀ» web ¸ğµå·Î º¯È¯
+      web: [/\.[jt]sx?$/],  // ëª¨ë“  JS/JSX/TS/TSX íŒŒì¼ì„ web ëª¨ë“œë¡œ ë³€í™˜
     },
   },
   build: {
     chunkSizeWarningLimit: 100000000,
   },
-  // .js ÆÄÀÏ¿¡¼­ JSX ±¸¹®À» Áö¿øÇÏµµ·Ï ¼³Á¤
+  // .js íŒŒì¼ì—ì„œ JSX êµ¬ë¬¸ì„ ì§€ì›í•˜ë„ë¡ ì„¤ì •
   esbuild: {
     loader: "jsx",
-    include: /\.[jt]sx?$/,  // .js, .jsx, .ts, .tsx ¸ğµÎ Æ÷ÇÔ
+    include: /\.[jt]sx?$/,  // .js, .jsx, .ts, .tsx ëª¨ë‘ í¬í•¨
     exclude: [],
   },
   optimizeDeps: {

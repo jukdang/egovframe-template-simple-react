@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 
-import logoFooterImg from "/assets/images/logo_footer_w.png";
-import logoFooterImgMobile from "/assets/images/logo_footer_m.png";
-import bannerImg_01 from "/assets/images/banner_w_01.png";
 import bannerImgMobile_01 from "/assets/images/banner_m_01.png";
-import bannerImg_02 from "/assets/images/banner_w_02.png";
 import bannerImgMobile_02 from "/assets/images/banner_m_02.png";
+import bannerImg_01 from "/assets/images/banner_w_01.png";
+import bannerImg_02 from "/assets/images/banner_w_02.png";
+import logoFooterImgMobile from "/assets/images/logo_footer_m.png";
+import logoFooterImg from "/assets/images/logo_footer_w.png";
 
 function EgovFooter() {
   return (

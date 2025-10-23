@@ -1,19 +1,17 @@
-import RootRoutes from "@/routes";
-import { BrowserRouter as Router } from "react-router-dom";
-
-import "@/css/base.css";
-import "@/css/layout.css";
-import "@/css/component.css";
-import "@/css/page.css";
-import "@/css/response.css";
+import RootRoutes from "@/routes/index.jsx";
+import MyRoutes from "@/routes/myRoutes.jsx";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="wrap">
-      <Router>
-        <RootRoutes />
-      </Router>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/*" element={<RootRoutes />} />
+        <Route path="/test/*" element={<MyRoutes />} />
+
+        {/* <RootRoutes /> */}
+      </Routes>
+    </Router>
   );
 }
 
