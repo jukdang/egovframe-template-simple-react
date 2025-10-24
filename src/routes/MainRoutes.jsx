@@ -10,6 +10,7 @@ import { Route, Routes } from "react-router-dom";
 
 import "@/api/customFetch";
 import { AuthProvider } from "@/mypages/AuthProvider";
+import Users from "@/mypages/users";
 
 const MainRoutes = () => {
 
@@ -29,6 +30,7 @@ const MainRoutes = () => {
 
           <Routes>
             <Route path={'/'} element={<Main />} />
+            <Route path={'/users'} element={<Users />} />
 
             <Route element={<NotLoggedInRoutes />}>
               <Route path={'/auth/login'} element={<LoginForm />} />
