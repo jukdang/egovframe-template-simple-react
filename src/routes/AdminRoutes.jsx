@@ -10,6 +10,15 @@ const AdminRoutes = () => {
   useEffect(() => {
     import('@/css2/common.css');
     import('@/css2/font.css');
+    import('@/css2/popup.css');
+    import('@/css2/reset.css');
+    import('@/css2/style.css');
+  }, []);
+  useEffect(() => {
+
+
+    import('@/css2/common.css');
+    import('@/css2/font.css');
     import('@/css2/reset.css');
     import('@/css2/admin-style.css');
   }, []);

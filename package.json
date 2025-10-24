@@ -5,12 +5,15 @@
   "type": "module",
   "dependencies": {
     "@amcharts/amcharts5": "^5.14.2",
+    "@tailwindcss/vite": "^4.1.16",
     "qs": "^6.14.0",
     "react": "^18.3.1",
     "react-datepicker": "^4.25.0",
     "react-dom": "^18.3.1",
+    "react-hot-toast": "^2.6.0",
     "react-router-dom": "^6.30.1",
     "styled-components": "^6.1.19",
+    "tailwindcss": "^4.1.16",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {

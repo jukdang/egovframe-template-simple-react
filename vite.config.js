@@ -1,12 +1,16 @@
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react({
-    // JSX 처리를 위한 추가 설정
-    include: "**/*.{jsx,js}",
-  })],
+  plugins: [
+    tailwindcss(),
+    react({
+      // JSX 처리를 위한 추가 설정
+      include: "**/*.{jsx,js}",
+    }),
+  ],
 
   base: "/",
   server: {
