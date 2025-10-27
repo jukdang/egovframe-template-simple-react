@@ -27,8 +27,8 @@ const Header = () => {
                 <Link to="/" className="text-black dark:text-white text-sm hover:text-indigo-500 dark:hover:text-indigo-400">
                   Home
                 </Link>
-                <Link to="/products" className="text-gray-500 dark:text-gray-400 text-sm hover:text-indigo-500 dark:hover:text-indigo-400">
-                  Products
+                <Link to="/chat" className="text-gray-500 dark:text-gray-400 text-sm hover:text-indigo-500 dark:hover:text-indigo-400">
+                  Chat
                 </Link>
                 <Link to="/about" className="text-gray-500 dark:text-gray-400 text-sm hover:text-indigo-500 dark:hover:text-indigo-400">
                   About
@@ -58,16 +58,19 @@ const Header = () => {
 
                 {/* Sign In Button */}
                 {!loading && (
-                  user === null ? (
+                  user == null ? (
                     <Link to="auth/login"
                       className="hidden md:block px-5 py-2 text-sm text-white bg-indigo-500 rounded-full hover:bg-indigo-600 transition-colors">
                       Sign In
                     </Link>
                   ) : (
-                    <button id="logout_btn" onClick={() => { logout(); toast.success('Logout successfully'); }}
-                      className="hidden md:block px-5 py-2 text-sm text-white bg-indigo-500 rounded-full hover:bg-indigo-600 transition-colors">
-                      Logout
-                    </button>
+                    <>
+                      <span>{user.name}</span>
+                      <button id="logout_btn" onClick={() => { logout(); toast.success('Logout successfully'); }}
+                        className="hidden md:block px-5 py-2 text-sm text-white bg-indigo-500 rounded-full hover:bg-indigo-600 transition-colors">
+                        Logout
+                      </button>
+                    </>
                   )
                 )}
 

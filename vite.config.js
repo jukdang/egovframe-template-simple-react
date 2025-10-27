@@ -10,7 +10,11 @@ export default defineConfig({
       // JSX 처리를 위한 추가 설정
       include: "**/*.{jsx,js}",
     }),
+
   ],
+  define: {
+    global: 'window',
+  },
 
   base: "/",
   server: {

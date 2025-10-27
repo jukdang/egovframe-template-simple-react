@@ -15,7 +15,10 @@ export function AuthProvider({ children }) {
         const res = await fetch("/auth/me");
         if (res.ok) {
           const data = await res.json();
-          setUser({ name: data.userName, role: data.userRole });
+          console.log(data);
+          data.resultCode == 200 ?
+            setUser({ name: data.result.id, role: data.result.role }) :
+            setUser(null);
         } else {
           setUser(null);
         }
