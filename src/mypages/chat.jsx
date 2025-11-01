@@ -2,20 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 import styled from 'styled-components';
-
+import ChatForm from "./components/chatForm";
+import RoomEnterForm from "./components/roomEnterForm";
+import RoomCreateForm from "./components/roomCreateForm";
 
 
 
 const Chat = () => {
 
   const [userName, setUserName] = useState("");
+  const [roomName, setRoomName] = useState("");
 
-  const roomName = "global-chat-room";
   const stompClientRef = useRef(null);
 
 
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
   const [roomId, setRoomId] = useState(null);
   const [connect, setConnect] = useState(false);
   const [start, setStart] = useState(false);
@@ -64,47 +65,15 @@ const Chat = () => {
 
   };
 
-  const sendMessage = () => {
-    const client = stompClientRef.current;
-
-    const message = {
-      roomName,
-      sender: userName,
-      message: input,
-      type: "TALK",
-    };
-    client.send(`/app/chat.send/${roomId}`, {}, JSON.stringify(message));
-
-
-    setInput("");
-  };
+  
 
   return (
     <>
       {!start &&
         <>
-          <div>
-            Enter your name:
-            <input
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-            />
-          </div>
-
-          <StyledBtnWrapper>
-            <button className="button" onClick={createChat}>
-              <span className="button-content">Create Chat </span>
-            </button>
-          </StyledBtnWrapper>
-
-          <div>
-            Enter roomId to join:
-            <input
-              value={roomId || ""}
-              onChange={(e) => setRoomId(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && setConnect(true)}
-            />
-            <button onClick={() => setConnect(true)}>Enter</button>
+          <div className="form-container flex flex-col gap-10 justify-center items-center">
+            <RoomCreateForm roomName={roomName} userName={userName} setUserName={setUserName} setRoomName={setRoomName} createChat={createChat} />
+            <RoomEnterForm roomName={roomName} userName={userName} setUserName={setUserName} setRoomName={setRoomName} createChat={createChat} />
           </div>
         </>
       }
@@ -116,6 +85,9 @@ const Chat = () => {
             <h2>userName: {userName}</h2>
           </div>
           <div>
+            <ChatForm messages={messages} roomName={roomName} roomId={roomId} userName={userName} stompClientRef={stompClientRef} />
+          </div>
+          {/* <div>
             <div className="chat-box">
               {messages.map((msg, i) => (
                 <div key={i}><b>{msg.sender}</b>: {msg.message}</div>
@@ -127,7 +99,7 @@ const Chat = () => {
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
             <button onClick={sendMessage}>Send</button>
-          </div>
+          </div> */}
         </>
       }
     </>
