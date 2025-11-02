@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
-import styled from 'styled-components';
 import ChatForm from "./components/chatForm";
 import RoomEnterForm from "./components/roomEnterForm";
 import RoomCreateForm from "./components/roomCreateForm";
+import Header from "./layout/header.jsx";
+import HowToEnterSelect from "./components/howToEnterSelect";
+import BackBtn from "./components/back.jsx";
+import toast from "react-hot-toast";
 
 
 
@@ -19,6 +22,8 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [roomId, setRoomId] = useState(null);
   const [connect, setConnect] = useState(false);
+
+  const [howToEnter, setHowToEnter] = useState(false);
   const [start, setStart] = useState(false);
 
   useEffect(() => {
@@ -51,6 +56,7 @@ const Chat = () => {
 
 
   const createChat = () => {
+
     fetch(`/api/chat/room/create?name=${roomName}`, {
       method: "POST",
 
@@ -65,27 +71,59 @@ const Chat = () => {
 
   };
 
+  const EnterChat = () => {
+    fetch(`/api/chat/room/join?name=${roomName}`, {
+      method: "GET",
+    }).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    }).then((data) => {
+      setRoomId(data.roomId);
+      setConnect(true);
+    })
+      .catch(() => {
+      toast.error("입장할 수 없습니다."); 
+    });
+
+  }
+
   
 
   return (
     <>
+      <Header />
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
       {!start &&
         <>
           <div className="form-container flex flex-col gap-10 justify-center items-center">
-            <RoomCreateForm roomName={roomName} userName={userName} setUserName={setUserName} setRoomName={setRoomName} createChat={createChat} />
-            <RoomEnterForm roomName={roomName} userName={userName} setUserName={setUserName} setRoomName={setRoomName} createChat={createChat} />
+            {!howToEnter &&
+              <HowToEnterSelect userName={userName} setUserName={setUserName} setHowToEnter={setHowToEnter} />
+            }
+            {howToEnter == "CREATE" &&
+              <RoomCreateForm roomName={roomName} userName={userName} setRoomName={setRoomName} createChat={createChat} backClick={() => setHowToEnter(false)} />
+            }
+            {howToEnter == "JOIN" &&
+              <RoomEnterForm roomName={roomName} userName={userName} setRoomName={setRoomName} createChat={EnterChat} backClick={() => setHowToEnter(false)} />
+            }
+            
           </div>
         </>
       }
 
       {start &&
-        <>
-          <div>
-            <h2>Chat Room: {roomName} (ID: {roomId})</h2>
-            <h2>userName: {userName}</h2>
-          </div>
-          <div>
-            <ChatForm messages={messages} roomName={roomName} roomId={roomId} userName={userName} stompClientRef={stompClientRef} />
+          <>
+          <div className="flex flex-col">
+            <div className="relative">
+              <h2>방 제목: {roomName}</h2>
+              <h2>닉네임: {userName}</h2>
+              <div className="absolute top-0 right-0">
+                <BackBtn onClick={() => setStart(false)} />
+            </div>
+            </div>
+            <div>
+              <ChatForm messages={messages} roomName={roomName} roomId={roomId} userName={userName} stompClientRef={stompClientRef} />
+            </div>
           </div>
           {/* <div>
             <div className="chat-box">
@@ -100,54 +138,17 @@ const Chat = () => {
             />
             <button onClick={sendMessage}>Send</button>
           </div> */}
+
+          
         </>
-      }
+        }
+        
+        </div>
     </>
   );
 };
 
 
 
-
-const StyledBtnWrapper = styled.div`
-  .button {
-    position: relative;
-    overflow: hidden;
-    height: 3rem;
-    padding: 0 2rem;
-    border-radius: 1.5rem;
-    background: #3d3a4e;
-    background-size: 400%;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-
-  .button:hover::before {
-    transform: scaleX(1);
-  }
-
-  .button-content {
-    position: relative;
-    z-index: 1;
-  }
-
-  .button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: 0 50%;
-    width: 100%;
-    height: inherit;
-    border-radius: inherit;
-    background: linear-gradient(
-      82.3deg,
-      rgba(150, 93, 233, 1) 10.8%,
-      rgba(99, 88, 238, 1) 94.3%
-    );
-    transition: all 0.475s;
-  }`;
 
 export default Chat;

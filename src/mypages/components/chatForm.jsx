@@ -1,8 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const ChatForm = ({ messages, roomName, roomId, userName, stompClientRef}) => {
+const ChatForm = ({ messages, roomId, userName, stompClientRef}) => {
 
 
   const [chatInput, setChatInput] = useState("");
@@ -11,7 +10,6 @@ const ChatForm = ({ messages, roomName, roomId, userName, stompClientRef}) => {
     const client = stompClientRef.current;
 
     const message = {
-      roomName,
       sender: userName,
       message: chatInput,
       type: "TALK",
@@ -22,15 +20,19 @@ const ChatForm = ({ messages, roomName, roomId, userName, stompClientRef}) => {
     setChatInput("");
   };
 
-  
 
+  const messageListRef = useRef(null);
+
+  useEffect(() => {
+    messageListRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   return (
     <StyledWrapper>
       <div className="card">
         <div className="chat-header">Chat</div>
-        <div className="chat-window">
-          <ul className="message-list">
+        <div className="chat-window px-2 py-2" >
+          <ul className="message-list" ref={messageListRef}>
             {messages.map((msg, i) => (
                 <div key={i}><b>{msg.sender}</b>: {msg.message}</div>
               ))}

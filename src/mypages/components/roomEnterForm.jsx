@@ -1,16 +1,22 @@
-import React from 'react';
 import styled from 'styled-components';
+import BackBtn from './back';
 
 
-const RoomEnterForm = ({ roomName, userName, setUserName, setRoomName, createChat }) => {
+const RoomEnterForm = ({ roomName, userName, setRoomName, createChat, backClick }) => {
 
-      return (
+  return (
     <StyledWrapper>
-      <div className="card">
+      <div className="card relative">
+        <div className="absolute top-0 right-0">
+          <BackBtn onClick={backClick} />
+        </div>
         <span className="card__title">방 입장하기</span>
         <p className="card__content">방 이름과 닉네임을 입력하고 방에 입장해보세요.</p>
+        <div>
+          <span>닉네임: </span>
+          <span>{userName}</span>
+        </div>
         <div className="card__form">
-          <input placeholder="Your Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)} />
           <input placeholder="Room Name" type="text" value={roomName} onChange={(e) => setRoomName(e.target.value)} />
           <button className="submit-btn" onClick={createChat}>방 입장하기</button>
         </div>

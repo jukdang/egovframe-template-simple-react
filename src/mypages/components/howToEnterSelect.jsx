@@ -1,33 +1,33 @@
-import styled from 'styled-components';
-import BackBtn from './back';
 import toast from 'react-hot-toast';
+import styled from 'styled-components';
 
 
-const RoomCreateForm = ({ roomName, userName, setRoomName, createChat, backClick }) => {
+const HowToEnterSelect = ({ userName, setUserName, setHowToEnter }) => {
 
-  const createRoom = () => {
-    if( !roomName ) {
-      toast.error("방 이름을 입력해주세요.");
+  const RoomCreateForm = () => {
+    if (!userName) {
+      toast.error("닉네임을 입력해주세요.");
       return;
     }
-    createChat();
+    setHowToEnter("CREATE");
+  }
+  const roomEnterForm = () => {
+    if (!userName) {
+      toast.error("닉네임을 입력해주세요.");
+      return;
+    }
+    setHowToEnter("JOIN");
   }
 
   return (
     <StyledWrapper>
-      <div className="card relative">
-        <div className="absolute top-0 right-0">
-          <BackBtn onClick={backClick} />
-        </div>
-        <span className="card__title">방 만들기</span>
-        <p className="card__content">방 이름과 닉네임을 입력하고 방을 만들어보세요.</p>
-        <div>
-          <span>닉네임: </span>
-          <span>{userName}</span>
-        </div>
+      <div className="card">
+        <p className="card__content">닉네임을 입력하고 방에 입장해보세요.</p>
         <div className="card__form">
-          <input placeholder="Room Name" type="text" value={roomName} onChange={(e) => setRoomName(e.target.value)} />
-          <button className="submit-btn" onClick={createRoom}>방 만들기</button>
+          <input placeholder="Your Name" type="text" value={userName} onChange={(e) => setUserName(e.target.value)}  />
+          <button className="submit-btn" onClick={RoomCreateForm}>방 생성하기</button>
+          <button className="submit-btn" onClick={roomEnterForm}>방 입장하기</button>
+
         </div>
       </div>
     </StyledWrapper>
@@ -95,4 +95,5 @@ const StyledWrapper = styled.div`
     opacity: 0.8;
   }`;
 
-export default RoomCreateForm;
+
+export default HowToEnterSelect;
