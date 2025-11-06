@@ -17,7 +17,7 @@ const MainRoutes = () => {
 
     <AuthProvider>
       <Toaster />
-      <div className="wrap" id="wrap">
+      <div className="wrap h-screen" id="wrap">
         
 
 

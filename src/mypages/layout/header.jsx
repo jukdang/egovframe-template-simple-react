@@ -1,7 +1,7 @@
 import { useAuth } from "@/mypages/AuthProvider";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 const Header = () => {
 
@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <>
       <header className="h-16 flex items-center justify-center relative">
-        <div className="h-full w-full bg-white dark:bg-[#1E2028] items-center flex z-100">
-          <div className="max-w-7xl w-full mx-auto px-6">
+        <div className="h-full w-full bg-white dark:bg-[#1E2028] items-center flex z-100 border-b border-gray-200 dark:border-gray-700 px-4 md:px-8">
+          <div className="w-full mx-auto px-6">
             <div className="flex items-center justify-between relative ">
               {/* Logo Section */}
 
