@@ -20,7 +20,7 @@ const Chat = () => {
 
 
   const [messages, setMessages] = useState([]);
-  const [roomId, setRoomId] = useState(null);
+  const [roomId, setRoomId] = useState(null);``
   const [connect, setConnect] = useState(false);
 
   const [howToEnter, setHowToEnter] = useState(false);
@@ -30,7 +30,7 @@ const Chat = () => {
 
     if (!connect || stompClientRef.current) return;
 
-    const socket = new SockJS("http://localhost:8081/ws");
+    const socket = new SockJS("http://172.30.1.30:8080/ws");
     const stompClient = over(socket);
 
     stompClient.connect({}, () => {
@@ -147,8 +147,6 @@ const Chat = () => {
     </>
   );
 };
-
-
 
 
 export default Chat;
