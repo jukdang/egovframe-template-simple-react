@@ -12,7 +12,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("/auth/me");
+        const res = await fetch("/api/auth/me");
         if (res.ok) {
           const data = await res.json();
           console.log(data);
@@ -44,7 +44,7 @@ export function AuthProvider({ children }) {
 
   // ✅ 3. 로그아웃 처리
   const logout = async () => {
-    await fetch("/auth/logout", { method: "POST", credentials: "include" });
+    await fetch("/api/auth/logout", { method: "POST", credentials: "include" });
     setUser(null);
   };
 
