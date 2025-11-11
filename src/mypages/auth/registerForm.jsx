@@ -3,6 +3,7 @@ import UserValidator from "@/utils/userValidator";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Header from "../layout/header.jsx";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -153,10 +154,17 @@ const RegisterForm = () => {
 
   return (
     <>
-      <link rel="stylesheet" href="/css/egovframework/auth.css" />
+      <Header />
+      <div className="flex items-center justify-center min-h-[calc(100vh-4rem)]">
+        <div className="form">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">Register</h2>
 
-      <div className="form">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Register</h2>
+          <div className="flex-column">
+            <label>ID </label>
+          </div>
+          <div className="inputForm">
+            <input type="text" className="input" id="register-id" placeholder="Enter your ID" ref={idRef} />
+          </div>
 
         <div className="flex-column">
           <label>ID </label>
@@ -217,8 +225,9 @@ const RegisterForm = () => {
         </div>
         <div>{emailTouched ? "" : <span style={{ color: "red", marginLeft: "10px" }}>{emailMessage}</span>}</div>
 
-        <div className="flex-column">
-          <label>Telephone </label>
+          <button className="button-submit" onClick={registerUser}>
+            Register
+          </button>
         </div>
         <div className="inputForm">
           <input type="text" className="input" id="register-telephone" placeholder="Enter your Telephone" onChange={handleTelephoneChange} />

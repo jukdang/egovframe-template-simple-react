@@ -8,7 +8,6 @@ const NotLoggedInRoutes = ({ children }) => {
   if (loading) return null; // 혹은 로딩 스켈레톤
 
   return user ? <Navigate to="/" replace /> : <Outlet />;
-
-}
+};
 
 export default NotLoggedInRoutes;

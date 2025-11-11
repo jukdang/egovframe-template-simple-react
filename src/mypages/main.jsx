@@ -1,7 +1,6 @@
 import Header from "./layout/header.jsx";
 
 const Main = () => {
-
   return (
     <>
       <Header />
