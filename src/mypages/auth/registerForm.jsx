@@ -9,32 +9,31 @@ const RegisterForm = () => {
   const navigate = useNavigate();
 
   const registerUser = () => {
-    if (id)
-      fetch("/api/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          id: id,
-          password: password,
-          name: userName,
-          email: email,
-          telNo: telephone,
-        }),
+    fetch("/api/user/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        password: password,
+        name: userName,
+        email: email,
+        telNo: telephone,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          // toastr.success('Registration successful! Please log in.');
+          toast.success("Registration successful! Please log in.");
+          navigate("/test/auth/login");
+        } else {
+          toast.error("Registration failed. Please try again.");
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            // toastr.success('Registration successful! Please log in.');
-            toast.success("Registration successful! Please log in.");
-            navigate("/test/auth/login");
-          } else {
-            toast.error("Registration failed. Please try again.");
-          }
-        })
-        .catch((error) => {
-          toast.error(error, "Error");
-        });
+      .catch((error) => {
+        toast.error(error, "Error");
+      });
   };
 
   useEffect(() => {
@@ -82,7 +81,7 @@ const RegisterForm = () => {
   }, [password]);
 
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [confirmPasswordMessage, setConfirmPasswordMessage] = useState(false);
+  const [confirmPasswordMessage, setConfirmPasswordMessage] = useState("");
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
@@ -96,7 +95,7 @@ const RegisterForm = () => {
   }, [password, confirmPassword]);
 
   const [userName, setUserName] = useState("");
-  const [userNameMessage, setUserNameMessage] = useState(false);
+  const [userNameMessage, setUserNameMessage] = useState("");
   const [userNameTouched, setUserNameTouched] = useState(false);
   const handleUserNameChange = (e) => {
     setUserName(e.target.value);
@@ -163,13 +162,6 @@ const RegisterForm = () => {
             <label>ID </label>
           </div>
           <div className="inputForm">
-            <input type="text" className="input" id="register-id" placeholder="Enter your ID" />
-          </div>
-
-          <div className="flex-column">
-            <label>ID </label>
-          </div>
-          <div className="inputForm">
             <input type="text" className="input" id="register-id" placeholder="Enter your ID" onChange={handleIdChange} />
           </div>
           <div>{idTouched ? <span style={{ color: "red", marginLeft: "10px" }}>{idMessage}</span> : ""}</div>
@@ -187,7 +179,7 @@ const RegisterForm = () => {
               <path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM144 256a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm144-64c0 35.3-28.7 64-64 64c-7.1 0-13.9-1.2-20.3-3.3c-5.5-1.8-11.9 1.6-11.7 7.4c.3 6.9 1.3 13.8 3.2 20.7c13.7 51.2 66.4 81.6 117.6 67.9s81.6-66.4 67.9-117.6c-11.1-41.5-47.8-69.4-88.6-71.1c-5.8-.2-9.2 6.1-7.4 11.7c2.1 6.4 3.3 13.2 3.3 20.3z"></path>
             </svg>
           </div>
-          <div>{passwordTouched ? "" : <span style={{ color: "red", marginLeft: "10px" }}>{passwordMessage}</span>}</div>
+          <div>{passwordTouched ? <span style={{ color: "red", marginLeft: "10px" }}>{passwordMessage}</span> : ""}</div>
 
           <div className="flex-column">
             <label>Confirm Password </label>
@@ -216,7 +208,7 @@ const RegisterForm = () => {
           <div className="inputForm">
             <input type="text" className="input" id="register-name" placeholder="Enter your Name" onChange={handleUserNameChange} />
           </div>
-          <div>{userNameTouched ? "" : <span style={{ color: "red", marginLeft: "10px" }}>{userNameMessage}</span>}</div>
+          <div>{userNameTouched ? <span style={{ color: "red", marginLeft: "10px" }}>{userNameMessage}</span> : ""}</div>
 
           <div className="flex-column">
             <label>Email </label>
@@ -229,20 +221,20 @@ const RegisterForm = () => {
             </svg>
             <input type="text" className="input" id="register-email" placeholder="Enter your Email" onChange={handleEmailChange} />
           </div>
-          <div>{emailTouched ? "" : <span style={{ color: "red", marginLeft: "10px" }}>{emailMessage}</span>}</div>
+          <div>{emailTouched ? <span style={{ color: "red", marginLeft: "10px" }}>{emailMessage}</span> : ""}</div>
+
+          <div className="flex-column">
+            <label>Telephone </label>
+          </div>
+          <div className="inputForm">
+            <input type="text" className="input" id="register-telephone" placeholder="Enter your Telephone" onChange={handleTelephoneChange} />
+          </div>
+          <div>{telephoneTouched ? <span style={{ color: "red", marginLeft: "10px" }}>{telephoneMessage}</span> : ""}</div>
 
           <button className="button-submit" onClick={registerUser}>
             Register
           </button>
         </div>
-        <div className="inputForm">
-          <input type="text" className="input" id="register-telephone" placeholder="Enter your Telephone" onChange={handleTelephoneChange} />
-        </div>
-        <div>{telephoneTouched ? "" : <span style={{ color: "red", marginLeft: "10px" }}>{telephoneMessage}</span>}</div>
-
-        <button className="button-submit" onClick={registerUser}>
-          Register
-        </button>
       </div>
     </>
   );
