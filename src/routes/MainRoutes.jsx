@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 
 import "@/api/customFetch";
 import { AuthProvider } from "@/mypages/AuthProvider";
+import Board from "@/mypages/board";
 import Chat from "@/mypages/chat";
 import Users from "@/mypages/users";
 
@@ -18,6 +19,7 @@ const MainRoutes = () => {
           <Route path={"/"} element={<Main />} />
           <Route path={"/users"} element={<Users />} />
           <Route path={"/chat"} element={<Chat />} />
+          <Route path={"/board"} element={<Board />} />
 
           {/* <Route element={<NotLoggedInRoutes />}> */}
           <Route path={"/auth/login"} element={<LoginForm />} />
